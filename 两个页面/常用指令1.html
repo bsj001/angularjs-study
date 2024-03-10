@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../angular.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <!-- 
+
+     -->
+    <div ng-controller="myController1">
+        <h1>价格计算器（自动）</h1>
+        数量:<input type="number" ng-model="count">
+        价格:<input type="number" ng-model="price">
+        <p>总计：{{count*price}}</p>
+        <p>总计：{{getTotalPrice()}}</p>
+    </div>
+
+    <div ng-controller="myController2">
+        <h1>价格计算器（手动）</h1>
+        数量:<input type="number" ng-model="count">
+        价格:<input type="number" ng-model="price">
+        <button ng-click="getTotalPrice()">计算</button>
+        <p>总计：{{totalPrice}}</p>
+    </div>
+
+    <!-- 
+            ng-repeat:遍历数组显示数据，数组有几个元素就会产生几个新的作用域
+            $index,$first,$last,$middle,$odd,$even
+        -->
+    <div ng-controller="myController3">
+        <h1>人员信息列表</h1>
+        <ul>
+            <li ng-repeat="person in persons">
+                {{$odd}}----{{$even}}----{{$first}}----{{$last}}----{{$middle}}----{{$index}}----{{person.username}}------{{person.age}}
+            </li>
+        </ul>
+    </div>
+
+    <!-- 
+                ng-show
+                ng-hide
+            -->
+    <div ng-controller="myController4">
+        <h1 ng-show="true">显示</h1>
+        <h1 ng-hide="true">隐藏</h1>
+        <h1 ng-show="toggle">显示/隐藏</h1>
+        <button ng-click="getToggle()">反转</button>
+
+    </div>
+</body>
+
+</html>
+<script>
+    angular.module('myApp', [])
+        .controller('myController1', ['$scope', function ($scope) {
+            $scope.count = 0;
+            $scope.price = 0;
+            $scope.getTotalPrice = function () {
+                return $scope.count * $scope.price;
+            }
+        }])
+        .controller('myController2', ['$scope', function ($scope) {
+            $scope.count = 0;
+            $scope.price = 0;
+            $scope.totalPrice = 0;
+            $scope.getTotalPrice = function () {
+                $scope.totalPrice = $scope.count * $scope.price;
+            }
+        }])
+        .controller('myController3', ['$scope', function ($scope) {
+            $scope.persons = [
+                { username: 'tom', age: 10 },
+                { username: 'tom', age: 10 },
+                { username: 'tom', age: 10 },
+                { username: 'tom', age: 10 },
+                { username: 'tom', age: 10 },
+                { username: 'tom', age: 10 }
+            ]
+        }])
+        .controller('myController4', ['$scope', function ($scope) {
+            $scope.toggle = true;
+            $scope.getToggle = function () {
+                $scope.toggle = !$scope.toggle;
+            }
+        }])
+</script>

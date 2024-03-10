@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../angular.js"></script>
+</head>
+
+<body ng-app>
+    <!-- 
+        1,数据绑定：数据从一个地方A转移（传递）到另一个地方B,而且这个操作由框架来完成
+        2，双向数据绑定：数据可以从View（视图层）流向Model(模型），也可以从Model流向View
+        视图（view)
+        模型(Model)
+        ng-model是双向数据绑定，而{{}}是单向数据绑定
+
+        3,ng-init 用来初始化当前作用域变量。
+     -->
+    <input type="text" ng-model="username">
+    <p>您输入的内容是：<span>{{username}}</span></p>
+
+    <input type="text" ng-model="username">
+    <p>您输入的内容是2：<span>{{username}}</span></p>
+</body ng-app>
+
+</html>

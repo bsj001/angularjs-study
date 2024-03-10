@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../angular.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <!-- 
+        1，作用域对象：
+            一个js实例对象，ng-app指令默认会创建一个根作用域对象（$rootScope）
+            它的属性和方法与页面中的指令或表达式是关联的
+        2，控制器：
+            用来控制AngularJs应用数据的实例对象
+            ng-controller：指定控制器构造函数，Angular会自动new此函数创建控制器对象
+            同时Angular还有创建一个新的域对象$scope，它是$rootScope的子对象
+            在控制器函数中声明$scope形参，Angular会自动将$scope传入
+     -->
+    <div ng-controller="myController">
+        <input type="text" placeholder="姓" ng-model="firstname">
+        <input type="text" placeholder="名" ng-model="lastname">
+
+        <p>输入的姓名为：{{firstname+"-"+lastname}}</p>
+        <p>输入的姓名为2：{{getName()}}</p>
+    </div>
+
+    <div ng-controller="myController2">
+        <p>年龄：{{age}}</p>
+    </div>
+</body>
+
+</html>
+<script>
+    /* var myModule = angular.module('myApp', []);
+    myModule.controller('myController', function ($scope) {
+        $scope.firstname = 'Andy';
+        $scope.lastname = 'Blue';
+        $scope.getName = function () {
+            return $scope.firstname + ' ' + $scope.lastname;
+        }
+    })
+    myModule.controller('myController2', function ($scope) {
+        $scope.age = 12;
+    }) */
+
+    //链式写法
+    /* angular.module('myApp', [])
+        .controller('myController', function ($scope) {
+            $scope.firstname = 'Andy';
+            $scope.lastname = 'Blue';
+            $scope.getName = function () {
+                return $scope.firstname + ' ' + $scope.lastname;
+            }
+        })
+        .controller('myController2', function ($scope) {
+            $scope.age = 12;
+        }) */
+    //以上的代码还有问题：
+    //js代码压缩后形参会用abcd字母代替
+    //代码压缩的$scope会被abcd代替，angular解析不了
+    //解决方案
+    angular.module('myApp', [])
+        .controller('myController', ['$scope', function ($scope) {//显示声明依赖注入
+            $scope.firstname = 'Andy';
+            $scope.lastname = 'Blue';
+            $scope.getName = function () {
+                return $scope.firstname + ' ' + $scope.lastname;
+            }
+        }])
+        .controller('myController2', ['$scope', function ($scope) {
+            $scope.age = 12;
+        }])
+</script>
